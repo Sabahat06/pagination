@@ -4,12 +4,15 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/cart_controller.dart';
 import 'package:flutter_app/product.dart';
 import 'package:flutter_app/product_Controller.dart';
+import 'package:flutter_app/product_detail_screen.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class CategoryScreen extends StatelessWidget {
+  CartController cartController = Get.put(CartController());
   ProductController controller = ProductController();
   RefreshController _refreshController = RefreshController();
   @override
@@ -56,18 +59,21 @@ class CategoryScreen extends StatelessWidget {
   }
 
   renderListItem(Product product){
-    return Column(
-      children: [
-        Container(
-          decoration: BoxDecoration(
-            border: Border.all(color: Colors.black)
+    return GestureDetector(
+      onTap: (){Get.to(() => ProductDetailScreen(product));},
+      child: Column(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.black)
+            ),
+            width: double.infinity,
+            height: 200,
+            child: Text(product.photo),
           ),
-          width: double.infinity,
-          height: 200,
-          child: Text(product.photo),
-        ),
-        SizedBox(height: 10),
-      ],
+          SizedBox(height: 10),
+        ],
+      ),
     );
   }
 }

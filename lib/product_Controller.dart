@@ -20,8 +20,9 @@ class ProductController extends GetxController{
 
     if(!loadMore)
     {
+      currentPage = 1.obs;
       progressing.value = true;
-      ProductsModal productResult = await HttpService.getProducts(currentPage.value)??ProductsModal(products: <Product>[].obs,totalPages: 0).obs;
+      ProductsModal productResult = await HttpService.getProducts(0)??ProductsModal(products: <Product>[].obs,totalPages: 0).obs;
       progressing.value = false;
       productsModal.value = productResult;
     }

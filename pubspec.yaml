@@ -37,6 +37,8 @@ dependencies:
   get: ^4.3.8
   http: ^0.13.3
   pull_to_refresh: ^2.0.0
+  cached_map: ^2.0.5
+  fluttertoast: ^8.0.8
 
 dev_dependencies:
   flutter_test:
