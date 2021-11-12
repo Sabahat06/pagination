@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 class CartController extends GetxController {
   Cart cart = Cart(products: <Product>[].obs);
   RxInt totalItems = 0.obs;
+  RxInt cartIndex = 1.obs;
   RxBool progressing = false.obs;
 
   onInit() {
@@ -60,8 +61,16 @@ class CartController extends GetxController {
       cart.products.removeAt(index);
       Fluttertoast.showToast(msg:"Item removed");
       Mapped.saveFileDirectly(file: cart.toJson(), cachedFileName: 'Cart');
+      cartIndex.value = -1.obs;
     }
 
+  }
+
+  removeItemFromCart(Product product,int index) {
+    cart.products.removeAt(index);
+    Fluttertoast.showToast(msg:"Item removed");
+    Mapped.saveFileDirectly(file: cart.toJson(), cachedFileName: 'Cart');
+    cartIndex.value = -1.obs;
   }
 
 

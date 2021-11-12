@@ -8,11 +8,10 @@ import 'package:get/get.dart';
 
 class ProductDetailScreen extends StatelessWidget {
   CartController cartController = Get.find();
-  RxInt cartIndex = 1.obs;
 
   Product product;
   ProductDetailScreen(this.product){
-    cartIndex.value =  cartController.cart.products.indexWhere((element) => element.id==product.id);
+    cartController.cartIndex.value =  cartController.cart.products.indexWhere((element) => element.id==product.id);
   }
 
   @override
@@ -32,11 +31,11 @@ class ProductDetailScreen extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           Obx(
-            () => cartIndex.value == -1
+            () => cartController.cartIndex.value == -1
                 ? GestureDetector(
               onTap: (){
-                cartController.addItem(product, cartIndex.value);
-                cartIndex.value=0;
+                cartController.addItem(product, cartController.cartIndex.value);
+                cartController.cartIndex.value=0;
               },
               child: Container(
                 width: double.infinity,
@@ -51,11 +50,11 @@ class ProductDetailScreen extends StatelessWidget {
                 MyFilledButton(
                   width: Get.width*0.27,
                   ontap: () {
-                    if(cartController.cart.products[cartIndex.value].quantity.value == 1){
-                      cartController.removeItem(product,cartIndex.value);
-                      cartIndex.value=-1;
+                    if(cartController.cart.products[cartController.cartIndex.value].quantity.value == 1){
+                      cartController.removeItem(product,cartController.cartIndex.value);
+                      cartController.cartIndex.value=-1;
                     }else{
-                      cartController.removeItem(product,cartIndex.value);
+                      cartController.removeItem(product,cartController.cartIndex.value);
                     }
                   },
                   height: 45,
@@ -63,11 +62,11 @@ class ProductDetailScreen extends StatelessWidget {
                   borderRadius: 10,
                   color: ColorPalette.orange,
                 ),
-                Text(cartController.cart.products[cartIndex.value].quantity.value.toString(), style: const TextStyle(fontSize: 18),),
+                Text(cartController.cart.products[cartController.cartIndex.value].quantity.value.toString(), style: const TextStyle(fontSize: 18),),
                 MyFilledButton(
                   width: Get.width*0.27,
                   ontap: () {
-                    cartController.addItem(product,cartIndex.value);
+                    cartController.addItem(product,cartController.cartIndex.value);
                   },
                   height: 45,
                   txt: '+',

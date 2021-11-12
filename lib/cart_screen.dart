@@ -9,19 +9,17 @@ class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Cart'),),
+      appBar: AppBar(title: const Text('Cart'),),
       body: Obx(
-        () => controller.cart.products.length == 0 ? Center(child: Text('No Item in Cart'),) :
-          controller.progressing.value
-              ? Center(child: CircularProgressIndicator(),)
-              : ListView.builder(
-            // shrinkWrap: true,
-              itemCount: controller.cart.products.length,
-              itemBuilder:(context, index) => renderListItem(controller.cart.products.value[index], index)
+        () => controller.cart.products.length == 0
+            ? const Center(child: Text('No Item in Cart'),)
+            : controller.progressing.value
+                ? const Center(child: CircularProgressIndicator(),)
+                : ListView.builder(
+                  itemCount: controller.cart.products.length,
+                  itemBuilder:(context, index) => renderListItem(controller.cart.products.value[index], index)
              ),
-      ),
-
-
+        ),
     );
   }
   renderListItem(Product product, int index){
@@ -38,13 +36,13 @@ class CartScreen extends StatelessWidget {
               Text(product.photo),
               const Spacer(),
               GestureDetector(
-                onTap: (){controller.removeItem(product, index);},
+                onTap: (){controller.removeItemFromCart(product, index);},
                 child: const Text('Remove Item'),
               ),
             ],
           ),
         ),
-        SizedBox(height: 10),
+        const SizedBox(height: 10),
       ],
     );
   }
